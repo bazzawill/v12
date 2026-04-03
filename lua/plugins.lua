@@ -1,16 +1,13 @@
 vim.g.mapleader = " "
+vim.keymap.set("n", "<leader>ee", function()
+    require("yazi").yazi()
+end)
 
 local HOME = vim.fn.expand("~")
 local local_dev = "file://" .. HOME
 vim.pack.add({
     { src = "https://github.com/mason-org/mason.nvim" },
-    -- { src = "https://github.com/mcauley-penney/techbase.nvim" },
-    -- { src = "https://github.com/blazkowolf/gruber-darker.nvim" },
-    -- { src = local_dev .. "/personal/techbase.nvim", version = "fix/core-hl-groups" },
     { src = "https://github.com/vieitesss/miniharp.nvim" },
-    -- { src = "https://github.com/vieitesss/gh-permalink.nvim" },
-    -- { src = local_dev .. "/personal/miniharp.nvim", version = "fix/do-not-save-index" },
-    -- { src = "https://github.com/ThePrimeagen/harpoon",        version = "harpoon2" },
     { src = "https://github.com/ibhagwan/fzf-lua" },
     { src = "https://github.com/lewis6991/gitsigns.nvim" },
     {
@@ -18,11 +15,10 @@ vim.pack.add({
         version = vim.version.range("^1"),
     },
     { src = "https://github.com/vieitesss/command.nvim", version = "main" },
-    -- { src = "https://github.com/vieitesss/command.nvim" },
     { src = "https://github.com/tpope/vim-fugitive" },
-    { src = "https://github.com/github/copilot.vim" },
-    -- { src = "https://github.com/lervag/vimtex" },
-    { src = "https://github.com/stevearc/oil.nvim" },
+    { src = "https://github.com/nvim-lua/plenary.nvim" },
+    { src = "https://github.com/mikavilpas/yazi.nvim" },
+    { src = "https://github.com/folke/which-key.nvim" },
 })
 
 vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
@@ -114,37 +110,6 @@ require("fzf-lua").setup({
     },
 })
 
-require("oil").setup({
-    default_file_explorer = true,
-    columns = {
-        "permissions",
-        "size",
-    },
-    constrain_cursor = "name",
-    watch_for_changes = true,
-    keymaps = {
-        ["g?"] = { "actions.show_help", mode = "n" },
-        ["<CR>"] = "actions.select",
-        ["<C-v>"] = { "actions.select", opts = { vertical = true } },
-        ["<C-s>"] = { "actions.select", opts = { horizontal = true } },
-        ["<C-t>"] = { "actions.select", opts = { tab = true } },
-        ["<C-p>"] = "actions.preview",
-        ["<C-c>"] = { "actions.close", mode = "n" },
-        ["<C-l>"] = "actions.refresh",
-        ["-"] = { "actions.parent", mode = "n" },
-        ["_"] = { "actions.open_cwd", mode = "n" },
-        ["`"] = { "actions.cd", mode = "n" },
-        ["~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
-        ["gs"] = { "actions.change_sort", mode = "n" },
-        ["gx"] = "actions.open_external",
-        ["g."] = { "actions.toggle_hidden", mode = "n" },
-        ["g\\"] = { "actions.toggle_trash", mode = "n" },
-    },
-    view_options = {
-        show_hidden = true,
-    },
-})
-
 -- vim.g.vimtex_imaps_enabled = 0
 -- vim.g.vimtex_view_method = "skim"
 -- vim.g.latex_view_general_viewer = "skim"
@@ -158,3 +123,19 @@ require("oil").setup({
 --     "LaTeX Warning: .\\+ float specifier changed to",
 --     "Package hyperref Warning: Token not allowed in a PDF string",
 -- }
+-- (Obtain yazi.nvim and its dependencies using your preferred method first)
+--
+-- Next, map a key to open yazi.nvim
+
+-- 👇 if you use `open_for_directories=true`, this is recommended.
+--
+-- mark netrw as loaded so it's not loaded at all.
+-- More details: https://github.com/mikavilpas/yazi.nvim/issues/802
+-- vim.g.loaded_netrwPlugin = 1
+-- vim.api.nvim_create_autocmd("UIEnter", {
+--     callback = function()
+--         require("yazi").setup({
+--             open_for_directories = true,
+--         })
+--     end,
+-- })

@@ -1,3 +1,42 @@
+local wk = require("which-key")
+wk.add({
+    { "<leader>f", group = "file" }, -- group
+    {
+        "<leader>ff",
+        "<cmd>Telescope find_files<cr>",
+        desc = "Find File",
+        mode = "n",
+    },
+    {
+        "<leader>fb",
+        function()
+            print("hello")
+        end,
+        desc = "Foobar",
+    },
+    { "<leader>fn", desc = "New File" },
+    { "<leader>f1", hidden = true }, -- hide this keymap
+    { "<leader>w", proxy = "<c-w>", group = "windows" }, -- proxy to window mappings
+    {
+        "<leader>b",
+        group = "buffers",
+        expand = function()
+            return require("which-key.extras").expand.buf()
+        end,
+    },
+    { "<leader>ee",
+       function()
+           require("yazi").yazi()
+        end, desc = "File Explorer" },
+    {
+        -- Nested mappings are allowed and can be added in any order
+        -- Most attributes can be inherited or overridden on any level
+        -- There's no limit to the depth of nesting
+        mode = { "n", "v" }, -- NORMAL and VISUAL mode
+        { "<leader>q", "<cmd>confirm q<cr>", desc = "Quit" }, -- no need to specify mode since it's inherited
+        { "<leader>w", "<cmd>w<cr>", desc = "Write" },
+    },
+})
 local keymap = vim.keymap.set
 local s = { silent = true }
 
@@ -10,8 +49,6 @@ keymap("n", "<C-d>", "<C-d>zz")
 keymap("n", "<C-u>", "<C-u>zz")
 
 --- save and quit
-keymap("n", "<Leader>w", "<cmd>w!<CR>", s)
-keymap("n", "<Leader>q", "<cmd>q<CR>", s)
 
 -- tabs
 keymap("n", "<Leader>te", "<cmd>tabnew<CR>", s)
@@ -40,7 +77,9 @@ keymap("n", "<leader>dp", "<cmd>lua vim.diagnostic.jump({count = -1})<CR>", ns)
 
 keymap("n", "<leader>ex", "<cmd>Ex %:p:h<CR>")
 keymap("n", "<leader>of", "<cmd>Oil<CR>")
-keymap("n", "<leader>oc", function() require("oil").open(vim.fn.getcwd()) end)
+keymap("n", "<leader>oc", function()
+    require("oil").open(vim.fn.getcwd())
+end)
 keymap("n", "<leader>ps", "<cmd>lua vim.pack.update()<CR>")
 keymap("n", "<leader>gs", "<cmd>Git<CR>", ns)
 keymap("n", "<leader>gp", "<cmd>Git push<CR>", ns)
