@@ -1,8 +1,4 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>ee", function()
-    require("yazi").yazi()
-end)
-
 local HOME = vim.fn.expand("~")
 local local_dev = "file://" .. HOME
 vim.pack.add({
@@ -26,13 +22,6 @@ vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
 require("command").setup({})
 require("miniharp").setup({ show_on_autoload = true })
 require("mason").setup({})
--- require('techbase').setup({})
--- require('gruber-darker').setup({
---     bold = false,
---     italic = {
---         strings = false,
---     },
--- })
 require("gitsigns").setup({ signcolumn = false })
 require("blink.cmp").setup({
     fuzzy = { implementation = "prefer_rust_with_warning" },
@@ -109,33 +98,15 @@ require("fzf-lua").setup({
         },
     },
 })
-
--- vim.g.vimtex_imaps_enabled = 0
--- vim.g.vimtex_view_method = "skim"
--- vim.g.latex_view_general_viewer = "skim"
--- vim.g.latex_view_general_options =
---     "-reuse-instance -forward-search @tex @line @pdf"
--- vim.g.vimtex_compiler_method = "latexmk"
--- vim.g.vimtex_quickfix_open_on_warning = 0
--- vim.g.vimtex_quickfix_ignore_filters = {
---     "Underfull",
---     "Overfull",
---     "LaTeX Warning: .\\+ float specifier changed to",
---     "Package hyperref Warning: Token not allowed in a PDF string",
--- }
--- (Obtain yazi.nvim and its dependencies using your preferred method first)
---
--- Next, map a key to open yazi.nvim
-
 -- 👇 if you use `open_for_directories=true`, this is recommended.
 --
 -- mark netrw as loaded so it's not loaded at all.
 -- More details: https://github.com/mikavilpas/yazi.nvim/issues/802
--- vim.g.loaded_netrwPlugin = 1
--- vim.api.nvim_create_autocmd("UIEnter", {
---     callback = function()
---         require("yazi").setup({
---             open_for_directories = true,
---         })
---     end,
--- })
+vim.g.loaded_netrwPlugin = 1
+vim.api.nvim_create_autocmd("UIEnter", {
+    callback = function()
+        require("yazi").setup({
+            open_for_directories = true,
+        })
+    end,
+})

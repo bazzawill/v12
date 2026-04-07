@@ -1,21 +1,43 @@
 local wk = require("which-key")
 wk.add({
+    {
+      "<leader>-",
+      mode = { "n", "v" },
+      "<cmd>Yazi<cr>",
+      desc = "Open yazi at the current file",
+    },
+    {
+      -- Open in the current working directory
+      "<leader>cw",
+      "<cmd>Yazi cwd<cr>",
+      desc = "Open the file manager in nvim's working directory",
+    },
+    {
+      "<c-up>",
+      "<cmd>Yazi toggle<cr>",
+      desc = "Resume the last yazi session",
+    },
     { "<leader>f", group = "file" }, -- group
     {
         "<leader>ff",
-        "<cmd>Telescope find_files<cr>",
+        "<cmd>FzfLua files<CR>",
         desc = "Find File",
         mode = "n",
     },
     {
-        "<leader>fb",
-        function()
-            print("hello")
-        end,
-        desc = "Foobar",
+        mode="n", "<leader>fg", "<cmd>FzfLua grep_project<CR>", desc = "Find word in project"
     },
-    { "<leader>fn", desc = "New File" },
-    { "<leader>f1", hidden = true }, -- hide this keymap
+    {
+        mode="n", "<leader>fl", "<cmd>FzfLua grep_last<CR>", desc = "Grep Last"
+    },
+    {
+        mode= "n", "<leader>fh", "<cmd>FzfLua help_tags<CR>", desc = "Search Help"
+    },
+    { "<leader>n", "<cmd>enew<CR>", desc = "New File" },
+    { "<leader>t", group = "tabs" },
+    { mode="n", "<Leader>te", "<cmd>tabnew<CR>", desc="new tab" },
+    { mode="n", "<Leader>tn", "<cmd>tabn<CR>", desc="next tab" },
+    { mode="n", "<Leader>tp", "<cmd>tabp<CR>", desc="previous tab" },
     { "<leader>w", proxy = "<c-w>", group = "windows" }, -- proxy to window mappings
     {
         "<leader>b",
@@ -24,7 +46,7 @@ wk.add({
             return require("which-key.extras").expand.buf()
         end,
     },
-    { "<leader>ee",
+    { "<leader>e",
        function()
            require("yazi").yazi()
         end, desc = "File Explorer" },
@@ -48,16 +70,9 @@ keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 keymap("n", "<C-d>", "<C-d>zz")
 keymap("n", "<C-u>", "<C-u>zz")
 
---- save and quit
-
--- tabs
-keymap("n", "<Leader>te", "<cmd>tabnew<CR>", s)
-keymap("n", "<Leader>tn", "<cmd>tabn<CR>", s)
-keymap("n", "<Leader>tp", "<cmd>tabp<CR>", s)
-
 --- split windows
-keymap("n", "<Leader>_", "<cmd>vsplit<CR>", s)
-keymap("n", "<Leader>-", "<cmd>split<CR>", s)
+keymap("n", "<Leader>_", "<cmd>vsplit<CR>", { silent = true, desc = "vertical split"})
+keymap("n", "<Leader>-", "<cmd>split<CR>", { silent = true, desc = "horizontal split"})
 
 -- copy and paste
 keymap("v", "<Leader>p", '"_dP')
@@ -67,7 +82,7 @@ keymap("x", "y", [["+y]], s)
 keymap("t", "<Esc>", "<C-\\><C-N>")
 
 -- cd current dir
-keymap("n", "<leader>cd", '<cmd>lua vim.fn.chdir(vim.fn.expand("%:p:h"))<CR>')
+keymap("n", "<leader>cd", '<cmd>lua vim.fn.chdir(vim.fn.expand("%:p:h"))<CR>', { desc = "cd to current directory"})
 
 local ns = { noremap = true, silent = true }
 local er = { expr = true, replace_keycodes = false }
@@ -75,22 +90,13 @@ keymap("n", "grd", "<cmd>lua vim.lsp.buf.definition()<CR>", ns)
 keymap("n", "<leader>dn", "<cmd>lua vim.diagnostic.jump({count = 1})<CR>", ns)
 keymap("n", "<leader>dp", "<cmd>lua vim.diagnostic.jump({count = -1})<CR>", ns)
 
-keymap("n", "<leader>ex", "<cmd>Ex %:p:h<CR>")
-keymap("n", "<leader>of", "<cmd>Oil<CR>")
-keymap("n", "<leader>oc", function()
-    require("oil").open(vim.fn.getcwd())
-end)
 keymap("n", "<leader>ps", "<cmd>lua vim.pack.update()<CR>")
 keymap("n", "<leader>gs", "<cmd>Git<CR>", ns)
 keymap("n", "<leader>gp", "<cmd>Git push<CR>", ns)
-keymap("n", "<leader>ff", "<cmd>FzfLua files<CR>")
-keymap("n", "<leader>fg", "<cmd>FzfLua grep_project<CR>")
-keymap("n", "<leader>fl", "<cmd>FzfLua grep_last<CR>")
-keymap("n", "<leader>fh", "<cmd>FzfLua help_tags<CR>")
 keymap("n", "<leader>co", "<cmd>CommandExecute<CR>")
 keymap("n", "<leader>cr", "<cmd>CommandExecuteLast<CR>")
 keymap("i", "<S-Tab>", 'copilot#Accept("\\<Tab>")', er)
-keymap("n", "<leader>ma", require("miniharp").toggle_file)
+keymap("n", "<leader>ma", require("miniharp").toggle_file, { desc = "MiniHarp toggle file" })
 keymap("n", "<leader>mc", require("miniharp").clear)
 keymap("n", "<leader>l", require("miniharp").show_list)
 keymap("n", "<C-n>", require("miniharp").next)
