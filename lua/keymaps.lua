@@ -17,11 +17,26 @@ wk.add({
       "<cmd>Yazi toggle<cr>",
       desc = "Resume the last yazi session",
     },
+    { "<leader>r", "<cmd>restart<CR>", desc = "Restart Neovim / Reload Conf", icon = "󰑓 ", mode = "n"},
+    { "<leader>p", group = "Plugins" },
+    { "<leader>pm", "<cmd>Mason<CR>", desc = "Language and Formatters", mode = "n"},
     { "<leader>f", group = "file" }, -- group
     {
         "<leader>ff",
         "<cmd>FzfLua files<CR>",
         desc = "Find File",
+        mode = "n",
+    },
+    {
+        "<leader>fk",
+        "<cmd>FzfLua keymap<CR>",
+        desc = "Find Keybinding",
+        mode = "n",
+    },
+    {
+        "<leader>f?",
+        "<cmd>FzfLua<CR>",
+        desc = "Find Menu",
         mode = "n",
     },
     {
@@ -90,12 +105,11 @@ keymap("n", "grd", "<cmd>lua vim.lsp.buf.definition()<CR>", ns)
 keymap("n", "<leader>dn", "<cmd>lua vim.diagnostic.jump({count = 1})<CR>", ns)
 keymap("n", "<leader>dp", "<cmd>lua vim.diagnostic.jump({count = -1})<CR>", ns)
 
-keymap("n", "<leader>ps", "<cmd>lua vim.pack.update()<CR>")
+keymap("n", "<leader>ps", "<cmd>lua vim.pack.update()<CR>", { desc = "Update Plugins" })
 keymap("n", "<leader>gs", "<cmd>Git<CR>", ns)
 keymap("n", "<leader>gp", "<cmd>Git push<CR>", ns)
 keymap("n", "<leader>co", "<cmd>CommandExecute<CR>")
 keymap("n", "<leader>cr", "<cmd>CommandExecuteLast<CR>")
-keymap("i", "<S-Tab>", 'copilot#Accept("\\<Tab>")', er)
 keymap("n", "<leader>ma", require("miniharp").toggle_file, { desc = "MiniHarp toggle file" })
 keymap("n", "<leader>mc", require("miniharp").clear)
 keymap("n", "<leader>l", require("miniharp").show_list)

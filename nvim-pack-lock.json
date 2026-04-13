@@ -30,6 +30,10 @@
       "rev": "44d1e90e1f66e077268191e3ee9d2ac97cc18e65",
       "src": "https://github.com/mason-org/mason.nvim"
     },
+    "mini.icons": {
+      "rev": "7fdae2443a0e2910015ca39ad74b50524ee682d3",
+      "src": "https://github.com/nvim-mini/mini.icons.git"
+    },
     "miniharp.nvim": {
       "rev": "29c50dd622e98e2fc5e12f71fba29e3fc34f1425",
       "src": "https://github.com/vieitesss/miniharp.nvim"

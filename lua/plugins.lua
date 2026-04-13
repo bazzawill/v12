@@ -14,6 +14,7 @@ vim.pack.add({
     { src = "https://github.com/tpope/vim-fugitive" },
     { src = "https://github.com/nvim-lua/plenary.nvim" },
     { src = "https://github.com/mikavilpas/yazi.nvim" },
+    { src = "https://github.com/nvim-mini/mini.icons.git" },
     { src = "https://github.com/folke/which-key.nvim" },
 })
 
@@ -27,11 +28,7 @@ require("blink.cmp").setup({
     fuzzy = { implementation = "prefer_rust_with_warning" },
     signature = { enabled = true },
     keymap = {
-        preset = "default",
-        ["<C-space>"] = {},
-        ["<C-p>"] = {},
-        ["<Tab>"] = {},
-        ["<S-Tab>"] = {},
+        preset = "super-tab",
         ["<C-y>"] = { "show", "show_documentation", "hide_documentation" },
         ["<C-n>"] = { "select_and_accept" },
         ["<C-k>"] = { "select_prev", "fallback" },
@@ -45,7 +42,7 @@ require("blink.cmp").setup({
 
     appearance = {
         use_nvim_cmp_as_default = true,
-        nerd_font_variant = "normal",
+        nerd_font_variant = "mono",
     },
 
     completion = {
@@ -53,6 +50,9 @@ require("blink.cmp").setup({
             auto_show = true,
             auto_show_delay_ms = 200,
         },
+        ghost_text = {
+            enabled = true,
+        }
     },
 
     cmdline = {
