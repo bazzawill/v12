@@ -16,6 +16,7 @@ vim.pack.add({
     { src = "https://github.com/mikavilpas/yazi.nvim" },
     { src = "https://github.com/nvim-mini/mini.icons.git" },
     { src = "https://github.com/folke/which-key.nvim" },
+    { src = "https://github.com/max397574/startup.nvim" },
 })
 
 vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
@@ -24,6 +25,7 @@ require("command").setup({})
 require("miniharp").setup({ show_on_autoload = true })
 require("mason").setup({})
 require("gitsigns").setup({ signcolumn = false })
+require("startup").setup({theme = "dashboard"}) -- put theme name here
 require("blink.cmp").setup({
     fuzzy = { implementation = "prefer_rust_with_warning" },
     signature = { enabled = true },
@@ -56,6 +58,7 @@ require("blink.cmp").setup({
     },
 
     cmdline = {
+        enabled = false, -- Disabling blink.cmp for cmdline to let Vim's native completion work
         keymap = {
             preset = "inherit",
             ["<CR>"] = { "accept_and_enter", "fallback" },
