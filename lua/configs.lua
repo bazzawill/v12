@@ -24,12 +24,12 @@ opt.undodir = os.getenv('HOME') .. '/.vim/undodir'
 opt.undofile = true
 opt.winborder = "rounded"
 opt.hlsearch = false
+vim.opt.clipboard = "unnamedplus"
 
 vim.cmd.filetype("plugin indent on")
 -- vim.cmd.colorscheme("techbase")
 -- vim.cmd.colorscheme("gruber-darker")
 
-vim.g.copilot_no_tab_map = true
 vim.g.netrw_liststyle = 1
 vim.g.netrw_sort_by = "size"
 
@@ -43,6 +43,16 @@ if ok_ui2 and type(ui2.enable) == "function" then
         },
     })
 end
+vim.filetype.add({
+  extension = {
+    yaml = function(path, bufnr)
+      if vim.fn.search('tasks:\\|hosts:', 'nw') ~= 0 then
+        return 'yaml.ansible'
+      end
+      return 'yaml'
+    end,
+  },
+})
 vim.filetype.add({
   extension = {
     yml = function(path, bufnr)

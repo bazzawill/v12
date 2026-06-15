@@ -4,6 +4,23 @@ local map = vim.keymap.set
 local bs = { buffer = true, silent = true }
 local brs = { buffer = true, remap = true, silent = true }
 
+-- Detect zsh filetypes
+autocmd({ "BufRead", "BufNewFile" }, {
+    pattern = { "*.zsh", "*.zshrc", "*.zshenv", "*.zprofile", "*.zlogin", "*.zlogout" },
+    callback = function()
+        vim.bo.filetype = "zsh"
+    end,
+})
+autocmd("BufRead", {
+    pattern = "*",
+    callback = function()
+        local first_line = vim.fn.getline(1)
+        if first_line:match("^#!.*/zsh") or first_line:match("^#!.*env zsh") then
+            vim.bo.filetype = "zsh"
+        end
+    end,
+})
+
 -- Highlight yanked text
 local highlight_group = augroup("YankHighlight", { clear = true })
 autocmd("TextYankPost", {

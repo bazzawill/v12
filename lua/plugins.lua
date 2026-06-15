@@ -65,7 +65,16 @@ require("blink.cmp").setup({
         },
     },
 
-    sources = { default = { "lsp" } },
+    sources = {
+        default = { "lsp", "path", "snippets", "buffer" },
+        providers = {
+            path = {
+                opts = {
+                    get_cwd = function(_) return vim.fn.getcwd() end,
+                },
+            },
+        },
+    },
 })
 
 local actions = require("fzf-lua.actions")

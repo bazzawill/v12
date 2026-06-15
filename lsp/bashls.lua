@@ -3,9 +3,9 @@ return {
     cmd = { 'bash-language-server', 'start' },
     settings = {
         bashIde = {
-            globPattern = vim.env.GLOB_PATTERN or '*@(.sh|.inc|.bash|.command)',
+            globPattern = vim.env.GLOB_PATTERN or '*@(.sh|.inc|.bash|.command|.zsh|.zshrc)',
         },
     },
-    filetypes = { 'bash', 'sh' },
+    filetypes = { 'bash', 'sh', 'zsh' },
     root_markers = { '.git' },
 }
